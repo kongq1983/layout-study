@@ -1,17 +1,21 @@
 import { Layout, Menu } from 'antd';
 import {
   ApartmentOutlined,
+  EditOutlined,
   ExperimentOutlined,
+  FormOutlined,
   SettingOutlined,
   TeamOutlined,
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
 
-// 「Button 示例」菜单的 key：导出供 App 判断内容区该渲染什么
+// 示例菜单的 key：导出供 App 判断内容区该渲染什么
 export const BUTTON_DEMO_KEY = 'button-demo';
+export const FORM_DEMO_KEY = 'form-demo';
+export const INPUT_DEMO_KEY = 'input-demo';
 
-// 左侧菜单：机构管理 / 用户管理 / 系统配置（基本参数、系统参数）/ Button 示例
+// 左侧菜单：机构管理 / 用户管理 / 系统配置（基本参数、系统参数）/ 各组件示例
 export const MENU_ITEMS = [
   { key: 'org', label: '机构管理', icon: <ApartmentOutlined /> },
   { key: 'user', label: '用户管理', icon: <TeamOutlined /> },
@@ -25,6 +29,8 @@ export const MENU_ITEMS = [
     ],
   },
   { key: BUTTON_DEMO_KEY, label: 'Button 示例', icon: <ExperimentOutlined /> },
+  { key: FORM_DEMO_KEY, label: 'Form 示例', icon: <FormOutlined /> },
+  { key: INPUT_DEMO_KEY, label: 'Input 示例', icon: <EditOutlined /> },
 ];
 
 // 展平成一级映射，供外部按 key 取菜单标题
