@@ -6,17 +6,22 @@
 
 | 依赖 | 版本 |
 | --- | --- |
-| Vite | 8.x |
+| Vite | 6.x（8.x 依赖 rolldown 原生二进制，本机装不上，已降级） |
 | React / React DOM | 19.x |
 | Ant Design | 6.x |
-| 包管理器 | pnpm |
+| 包管理器 | pnpm（首选）/ npm（本机 pnpm 不可用时的备选） |
 
 ## 环境要求
 
-- Node.js **20.19+ 或 22.12+**（Vite 8 要求，推荐 22 LTS）
-- pnpm 9+（没有就先装：`npm i -g pnpm`）
+- Node.js **18+**（Vite 6 要求，推荐 20 LTS 或 22 LTS）
+- pnpm 9+（首选，没有就先装：`npm i -g pnpm`）
+- 若 pnpm 在本机装不上，改用 **npm 10+**（Node 自带，无需额外安装）
 
 ## 启动
+
+> 下面两套命令任选其一，`pnpm` 是首选；本机 pnpm 装不上时用 `npm`（见「常见问题」）。
+
+### 用 pnpm
 
 ```bash
 cd E:\reactjs\layout-study
@@ -28,22 +33,37 @@ pnpm install
 pnpm dev
 ```
 
+### 用 npm
+
+```bash
+cd E:\reactjs\layout-study
+
+# 1. 安装依赖（首次）
+npm install
+
+# 2. 启动开发服务器
+npm run dev
+```
+
 终端会输出访问地址，默认是 <http://localhost:5173>。修改 `src/` 下代码会自动热更新。
 
 ## 命令
 
-| 命令 | 作用 |
-| --- | --- |
-| `pnpm dev` | 启动开发服务器（默认 5173） |
-| `pnpm build` | 生产构建，产物在 `dist/` |
-| `pnpm preview` | 预览构建产物（默认 4173） |
-| `pnpm lint` | oxlint 代码检查 |
+| 作用 | pnpm | npm |
+| --- | --- | --- |
+| 安装依赖 | `pnpm install` | `npm install` |
+| 启动开发服务器（默认 5173） | `pnpm dev` | `npm run dev` |
+| 生产构建，产物在 `dist/` | `pnpm build` | `npm run build` |
+| 预览构建产物（默认 4173） | `pnpm preview` | `npm run preview` |
+| 代码检查 | `pnpm lint` | `npm run lint` |
+
+> npm 的命令必须带 `run`（`npm dev` 无效，要写 `npm run dev`）；pnpm 两种写法都行。
 
 ## 关闭
 
 ### 1. 正常关闭
 
-在运行 `pnpm dev` 的终端按：
+在运行 `pnpm dev` / `npm run dev` 的终端按：
 
 ```
 Ctrl + C
@@ -54,8 +74,13 @@ Ctrl + C
 ### 2. 换端口启动
 
 ```bash
+# pnpm
 pnpm dev -- --port 3000
 pnpm dev -- --host          # 允许局域网/手机访问，会额外输出 Network 地址
+
+# npm
+npm run dev -- --port 3000
+npm run dev -- --host
 ```
 
 ### 3. 端口被占用 / 进程没退干净（Windows）
@@ -149,9 +174,12 @@ layout-study/
 | 页面没样式 / 元素挤在一起 | 检查 `src/main.jsx` 是否引入 `antd/dist/reset.css` |
 | 布局没铺满全屏 | 最外层 `<Layout>` 补 `minHeight: '100vh'` |
 | Sider 和 Content 竖着排 | `Sider` 必须是 `Layout` 的**直接**子元素 |
-| 端口被占用 | `pnpm dev -- --port 3000`，或用 `netstat` + `taskkill` |
-| `pnpm` 不存在 | `npm i -g pnpm` |
+| 端口被占用 | `pnpm dev -- --port 3000`（npm：`npm run dev -- --port 3000`），或用 `netstat` + `taskkill` |
+| `pnpm` 不存在 | `npm i -g pnpm`，或直接用 `npm install` / `npm run dev` |
 | 装依赖慢 | `pnpm config set registry https://registry.npmmirror.com` |
+| `pnpm install` 报 `UNKNOWN ... open ... package.json` | 本机文件系统不支持 pnpm 的 junction 挂载点（Windows `untrusted mount point`），改用 `npm install`（已验证可用） |
+| `npm dev` 报找不到命令 | npm 必须写 `npm run dev`（`run` 不能省） |
+| `vite build` 报找不到 `rolldown` | 项目已固定 Vite 6（不依赖 rolldown 原生二进制）；若仍出现，确认 `vite` 版本为 6.x |
 
 ## 下一步
 

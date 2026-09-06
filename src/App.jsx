@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Layout } from 'antd';
-import AppSider, { FLAT_MENU_ITEMS } from './components/AppSider.jsx';
+import AppSider, { FLAT_MENU_ITEMS, BUTTON_DEMO_KEY } from './components/AppSider.jsx';
 import AppHeader from './components/AppHeader.jsx';
 import AppFooter from './components/AppFooter.jsx';
+import ButtonExamples from './components/ButtonExamples.jsx';
 
 const { Content } = Layout;
 
@@ -17,7 +18,13 @@ const App = () => {
       <AppSider selectedKey={selectedKey} onSelect={setSelectedKey} collapsed={collapsed} />
       <Layout>
         <AppHeader collapsed={collapsed} onToggleCollapse={() => setCollapsed((prev) => !prev)} />
-        <Content>Content{currentLabel ? ` · ${currentLabel}` : ''}</Content>
+        <Content style={{ padding: 24 }}>
+          {selectedKey === BUTTON_DEMO_KEY ? (
+            <ButtonExamples />
+          ) : (
+            <>Content{currentLabel ? ` · ${currentLabel}` : ''}</>
+          )}
+        </Content>
         <AppFooter />
       </Layout>
     </Layout>
